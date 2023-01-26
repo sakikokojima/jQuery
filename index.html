@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href="style.css" rel="stylesheet" />
+    
+    <title>おみくじアプリ</title>
+  </head>
+  <body>
+    <div class="app-header-contents">
+      <h1>- おみくじアプリ -</h1>
+      <h2>今日のあなたの運勢は・・・</h2>
+      <button class="start-button js-fortune-start" type="button">
+        運勢を占う！
+      </button>
+    </div>
+    
+    <div class="result">
+      <div class="row">
+        <div class="radius money">
+          <p class="title">金運</p>
+          <p class="stars"></p>
+          <p class="detail"></p>
+        </div>
+        </div>
+        <div class="row">
+          <div class="radius work">
+            <p class="title">仕事運</p>
+            <p class="stars"></p>
+            <p class="detail"></p>
+          </div>
+          <div class="radius health">
+            <p class="title">健康運</p>
+            <p class="stars"></p>
+            <p class="detail"></p>
+          </div>
+      </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      // ここに処理を記載します
+      // クリックすると以下の処理が呼ばれるようにする
+      $(function(){
+        const fortuneResults = {
+          money: [
+          {stars: '★★★',
+            detail: '最高の金運です！いつの間にかお金が溜まっているかも・・・？',},
+          {stars: '★★',
+            detail: 'まずまず金運です！使いすぎには注意しましょう！',},
+          {stars: '★',
+            detail: '悪い傾向が見られます！財布の紐は絞めておくと吉です！',},
+          ],
+          work: [
+          {stars: '★★★',
+            detail: '最高の仕事運です！いつも以上にチャンスが巡ってくるかも・・・？',},
+          {stars: '★★',
+            detail: 'まずまず仕事運です！普段通り仕事が進むでしょう！',},
+          {stars: '★',
+            detail: '悪い傾向が見られます！自信過剰にならないように注意しましょう',},
+          ],
+          health: [
+          {stars: '★★★',
+            detail: '最高の健康運です！ランニングの距離を伸ばしても良いですね！',},
+          {stars: '★★',
+            detail: 'まずまず健康運です！無理せず体を動かしましょう！',},
+          {stars: '★',
+            detail: '悪い傾向が見られます！ケガにご注意を・・・',},
+          ],
+        };
+
+        $(document).on('click', '.js-fortune-start', function () {
+        for (title in fortuneResults) {
+        const rand = Math.floor(Math.random() * 3);
+        const $target = $('.' + title);
+      
+       $target.find('.stars').text(fortuneResults[title][rand]['stars']);
+       $target.find('.detail').text(fortuneResults[title][rand]['detail']);
+       }
+
+      // ボタンのクラス名を「js-fortune-restart」
+      $('.js-fortune-start').addClass('js-fortune-restart');//start restart
+      $('.js-fortune-start').removeClass('js-fortune-start');//restart
+
+      // ボタンの表記を「もう一度占う！」に変更する
+      $('.js-fortune-restart').text('もう一度占う！');
+
+      // resultクラスの要素をfadeInさせる（＝占い結果を表示する
+      $('.result').fadeIn(1000);
+
+       });
+
+      $(document).on('click', '.js-fortune-restart', function () {
+      // ボタンのクラス名を「js-fortune-start」に変更する
+      $('.js-fortune-restart').addClass('js-fortune-start');
+      $('.js-fortune-restart').removeClass('js-fortune-restart');
+
+      // ボタンの表記を「もう一度占う！」に変更する
+      $('.js-fortune-start').text('運勢を占う！');
+
+      // resultクラスの要素をfadeOutさせる（＝占い結果を非表示にする）
+        $('.result').fadeOut(1000);
+  });
+});
+
+
+    </script>
+  </body>
+</html>
